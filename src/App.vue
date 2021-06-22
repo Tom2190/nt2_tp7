@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <JuegoColores/>
+    <Header/>
+    <Navigator/>
+    <Container/>
   </div>
 </template>
 
 <script>
-import JuegoColores from './components/JuegoColores.vue'
+import Header from "./components/Header.vue";
+import Navigator from "./components/Navigator.vue";
+import Container from "./components/Container.vue";
 
 export default {
   name: 'App',
   components: {
-    JuegoColores
-  }
+    Header,
+    Navigator,
+    Container,
+  },
+  mounted() {
+    this.$store.dispatch("restartAction", this.$store.state.colorCount);
+  },
 }
 </script>
 

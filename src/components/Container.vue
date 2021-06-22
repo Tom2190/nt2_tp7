@@ -1,11 +1,11 @@
 <template>
     <div id="container">
 		<div
-      		v-for="(color, idx) in coloresContainer"
+      		v-for="(color, idx) in getColors"
       		:key="idx"
       		class="square"
-      		@click="$emit('resultado', color, idx)"
-      		:style="{ 'background-color': color }"
+      		@click="resultado(color)"
+      		:style="{'background-color': color}"
     	></div>
 	</div>
 </template>
@@ -15,18 +15,20 @@
 export default {
     name: 'src-componentes-container',
     props: {
-    	colors: Array,
   	},
 	data() {
-	  return {
-		  coloresContainer: this.colors
-	  }
+	  return {}
 	},
-	watch: {
-    	colors() {
-      		this.coloresContainer = this.colors
-    	}
-	}
+	methods: {
+		resultado(color) {
+		this.$store.dispatch('resultadoAction', color)
+		}
+	},
+	computed: {
+		getColors() {
+			return this.$store.state.colors
+		}
+	},
 }
 </script>
 

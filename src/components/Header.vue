@@ -1,7 +1,7 @@
 <template>
-    <div id="header" :style="{ 'background-color': headerColor }">
+    <div id="header" :style="{ 'background-color': mostrarHeaderColor }">
 		<h1>The Great <br>
-			<span id="colorDisplay"> {{ pickedColor.toUpperCase() }} </span>
+			<span id="colorDisplay"> {{ mostrarPickedColor.toUpperCase() }} </span>
 			<br>
 			Guessing Game</h1>
 	</div>
@@ -12,9 +12,15 @@
 export default {
     name: 'src-componentes-header',
     props: {
-    pickedColor: String,
-    headerColor: String
-  }
+  },
+	computed: {
+		mostrarHeaderColor() {
+			return this.$store.state.headerColor
+		},
+		mostrarPickedColor() {
+			return this.$store.state.pickedColor
+		}
+	}
 }
 </script>
 

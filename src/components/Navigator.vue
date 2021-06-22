@@ -1,11 +1,11 @@
 <template>
 
   <div id="navigator">
-    <button id="reset" @click="$emit('restart')">{{ restartTextContent }}</button>
-    <span id="message">{{ messageDisplay }}</span>
+    <button id="reset" @click="restart">{{ mostrarRestartTextContent }}</button>
+    <span id="message">{{ mostrarMessageDisplay }}</span>
 
-    <button id="easy" :class="!isHard && 'selected'" @click="$emit('botonEasy')">Easy</button>
-    <button id="hard" :class="isHard && 'selected'" @click="$emit('botonHard')">Hard</button>
+    <button id="easy" :class="!this.isHard && 'selected'" @click="botonEasy">Easy</button>
+    <button id="hard" :class="this.isHard && 'selected'" @click="botonHard">Hard</button>
   </div>
 
 </template>
@@ -16,13 +16,39 @@ export default {
 
     name: 'src-componentes-navigator',
 	props: {
-		isHard: Boolean,
-		messageDisplay: String,
-		restartTextContent: String
-  },
+  	},
 	data () {
-      return {}
-    }
+      return {
+		  isHard: true,
+		  colorCount: 6
+	  }
+    },
+	methods: {
+		restart() {
+			this.$store.dispatch('restartAction',this.colorCount)
+		},
+        botonEasy () {
+			this.isHard = false
+            this.colorCount = 3
+			this.$store.dispatch('cambiarDificultad',this.isHard,this.colorCount)
+		    this.restart()
+        },
+
+        botonHard () {
+	        this.isHard = true
+		    this.colorCount = 6
+			this.$store.dispatch('cambiarDificultad',this.isHard,this.colorCount)
+		    this.restart()
+        },
+	},
+	computed: {
+		mostrarRestartTextContent() {
+			return this.$store.state.restartTextContent
+		},
+		mostrarMessageDisplay() {
+      		return this.$store.state.messageDisplay;
+    	},
+	}
 }
 </script>
 
